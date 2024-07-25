@@ -12,21 +12,35 @@ def gerar_fatia(face, i):
     
     # Define a fatia de acordo com a face escolhida
     if face == 1:
+        # Face 1: Canal R, valor fixo de G e B variando
         fatia[:, :, 0] = i
+        fatia[:, :, 1] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 2] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     elif face == 2:
+        # Face 2: Canal G, valor fixo de R e B variando
         fatia[:, :, 1] = i
+        fatia[:, :, 0] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 2] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     elif face == 3:
+        # Face 3: Canal B, valor fixo de R e G variando
         fatia[:, :, 2] = i
+        fatia[:, :, 0] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 1] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     elif face == 4:
+        # Face 4: Canal R invertido, valor fixo de G e B variando
         fatia[:, :, 0] = 255 - i
+        fatia[:, :, 1] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 2] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     elif face == 5:
+        # Face 5: Canal G invertido, valor fixo de R e B variando
         fatia[:, :, 1] = 255 - i
+        fatia[:, :, 0] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 2] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     elif face == 6:
+        # Face 6: Canal B invertido, valor fixo de R e G variando
         fatia[:, :, 2] = 255 - i
-    
-    # Preenche as outras dimensões com valores de 0 a 255
-    fatia[:, :, 1] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
-    fatia[:, :, 2] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
+        fatia[:, :, 0] = np.arange(256).reshape(1, 256).repeat(256, axis=0)
+        fatia[:, :, 1] = np.arange(256).reshape(256, 1).repeat(256, axis=1)
     
     return fatia
 
@@ -39,10 +53,10 @@ def mostrar_fatia(face, i):
 
 def salvar_fatia(face, i, caminho):
     fatia = gerar_fatia(face, i)
-    cv2.imwrite(caminho, fatia)
+    cv2.imwrite(caminho, cv2.cvtColor(fatia, cv2.COLOR_RGB2BGR))
 
 if __name__ == "__main__":
-    face = 6
-    i = 33
+    face = 5
+    i = 0
     mostrar_fatia(face, i)
     salvar_fatia(face, i, f"fatia_{face}_{i}.png")
