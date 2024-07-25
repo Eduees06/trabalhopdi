@@ -56,7 +56,22 @@ def salvar_fatia(face, i, caminho):
     cv2.imwrite(caminho, cv2.cvtColor(fatia, cv2.COLOR_RGB2BGR))
 
 if __name__ == "__main__":
-    face = 5
-    i = 0
-    mostrar_fatia(face, i)
-    salvar_fatia(face, i, f"fatia_{face}_{i}.png")
+    option = 0
+    
+    while option != 2:
+        print("Escolha uma opção:")
+        print("1 - Gerar face")
+        print("2 - Sair")
+        option = int(input())
+        
+        if(option == 1):
+            print("Escolha a face de 1 a 6:")
+            face = int(input())
+            print("Escolha a intensidade de 0 a 255:")
+            i = int(input())
+            mostrar_fatia(face, i)
+            salvar_fatia(face, i, f"fatia_{face}_{i}.png")
+            
+        if(option != 1 and option != 2):
+            print("Escolha uma opção válida!")
+        
